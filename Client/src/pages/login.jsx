@@ -48,11 +48,15 @@ export default function Login() {
         <>
             <div className={styles.container}>
                 <form onSubmit={handleSubmit}>
+                    <p>로그인</p>
                     <input className={styles.input} type="text" placeholder="아이디를 입력해주세요" value={userid} onChange={(e) => setUserid(e.target.value)} />
+                    <p>비밀번호</p>
                     <input className={styles.input} type="password" placeholder="비밀번호를 입력해주세요" value={password} onChange={(e) => setPassword(e.target.value)} />
                     {error && <p>{error}</p>}
+                    
                     <button className={styles.button}>로그인</button>
-                    <Link to="/auth/signup">회원가입</Link>
+                    
+                    <p>아이디가 아직 없으신가요?</p><Link to="/auth/signup">회원가입</Link>
                 </form>
             </div>
         </>

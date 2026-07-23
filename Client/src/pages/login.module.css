@@ -1,0 +1,23 @@
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.container {
+    margin: auto;
+    padding: 20px;
+    display: flex;
+    background-color: blue;
+}
+
+.input {
+    margin: 10px;
+    padding: 5px;
+    background-color: aliceblue;
+    display: block;
+    height: 25px;
+    width: 180px;
+    border: none;
+    border-radius: 5px;
+}
