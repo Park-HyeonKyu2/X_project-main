@@ -18,4 +18,8 @@ export function getPosts() {
     return db.collection("posts")
 }
 
+export function getComments() {
+    return db.collection("comments")
+}
+
 

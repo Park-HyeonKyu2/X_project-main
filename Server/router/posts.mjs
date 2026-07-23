@@ -1,6 +1,7 @@
 import express from "express"
 import { isAuth } from "../middleware/auth.mjs"
 import * as postController from "../controller/posts.mjs"
+import * as commentsController from "../controller/comments.mjs"
 import path from "path"
 import { fileURLToPath } from "url"
 
@@ -31,6 +32,8 @@ router.put("/:id", isAuth, postController.updatePost)
 // 포스트 삭제하기
 // http://127.0.0.1:8080/post/:id (DELETE)
 router.delete("/:id", isAuth, postController.deletePost)
+
+router.get("/:postId/comments", isAuth, commentsController.getPost)
 
 export default router
 
