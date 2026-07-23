@@ -2,7 +2,7 @@ import { useState } from "react"
 import styles from "./login.module.css"
 import { useNavigate, Link } from "react-router-dom"
 
-const API_URL = "http://127.0.0.1:5000/auth/signup"
+const API_URL = "http://127.0.0.1:5001/auth/signup"
 
 export default function Signup() {
     const [error, setError] = useState("")

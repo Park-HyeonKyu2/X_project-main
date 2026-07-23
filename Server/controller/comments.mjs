@@ -2,14 +2,15 @@ import * as commentRepository from "../data/comments.mjs"
 
 // 댓글을 작성하는 함수
 export async function createComment(req, res) {
+    const postId = req.params.postId
     const { text } = req.body
-    const post = await commentRepository.create(text, req.id)
+    const post = await commentRepository.create(text, req.id, postId)
     res.status(201).json(post)
 }
 
 // 포스트 내의 모든 댓글을 가져오는 함수
 export async function getByComment(req, res) {
-    const postId = req.query.postId
+    const postId = req.params.postId
     const data = await (postId ? commentRepository.getByPostId(postId) : commentRepository.getByComment())
     res.status(200).json(data)
 }
@@ -22,7 +23,7 @@ export async function deletePost(req, res) {
     if(!post){
         return res.status(404).json({message: `${id}의 포스트가 없습니다`})
     }
-    if(post.idx !== req.id){
+    if(post.idx !== req.id){ 
         return res.sendStatus(403)
     }
     await commentRepository.remove(id)

@@ -18,6 +18,7 @@ export function getPosts() {
     return db.collection("posts")
 }
 
+// comments 컬렉션 객체
 export function getComments() {
     return db.collection("comments")
 }
