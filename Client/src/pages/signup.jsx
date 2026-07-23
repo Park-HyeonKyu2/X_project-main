@@ -39,7 +39,6 @@ export default function Signup() {
         navigate("/auth/login")
         return data
         }
-    
 
 
     return (

@@ -33,7 +33,7 @@ router.put("/:id", isAuth, postController.updatePost)
 // http://127.0.0.1:8080/post/:id (DELETE)
 router.delete("/:id", isAuth, postController.deletePost)
 
-router.post("/:postId", isAuth, commentsController.createComment)
+router.post("/:postId/comments", isAuth, commentsController.createComment)
 
 router.get("/:postId/comments", isAuth, commentsController.getByComment)
 

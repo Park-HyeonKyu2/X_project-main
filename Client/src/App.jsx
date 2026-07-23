@@ -37,6 +37,10 @@ const router = createBrowserRouter([
   {
     path: "/post",
     element: <PostList />
+  },
+  {
+    path: "/post/:post_id",
+    element: <Post />
   }
   // 이후 포스터 라우터 추가할 것
 ])

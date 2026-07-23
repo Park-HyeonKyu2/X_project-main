@@ -1,12 +1,14 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import styles from "./postlist.module.css"
-import { useEffect } from "react"
 const API_URL = "http://127.0.0.1:5001/post"
+import { useNavigate } from "react-router-dom"
 
 export default function Post() {
   const [error, setError] = useState("")
-  const [post, setPost] = useState([])
+  const [post, setPost] = useState("")
   const [posts, setPosts] = useState([])
+
+  const navigate = useNavigate()
 
   const getPost = async () => {
     const token = localStorage.getItem("token")
@@ -42,7 +44,7 @@ export default function Post() {
     e.preventDefault()
     setError("")
 
-    if (!text.trim()) {
+    if (!post.trim()) {
       setError("텍스트를 입력해주세요")
       return
     }
@@ -57,10 +59,11 @@ export default function Post() {
       const response = await fetch(API_URL, {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
-          text: text.trim()
+          text: post.trim()
         })
       })
       const data = await response.json()
@@ -76,8 +79,18 @@ export default function Post() {
     }
   }
 
+  const logout = async (e) => {
+    localStorage.removeItem("token")
+    navigate("/auth/login")
+  }
+
+  const movingPost = async (post_id) => {
+      navigate(`/post/${post_id}`)
+    }
+
   return (
     <>
+      <button onClick={logout}>logout</button>
       <form onSubmit={handleSubmit}>
         <textarea className={styles.input} type="text" placeholder="글을 작성해주세요" value={post} onChange={(e) => setPost(e.target.value)} />
         {error && <p>{error}</p>}
@@ -89,7 +102,7 @@ export default function Post() {
           <p>등록된 게시물이 없습니다.</p>
         ) : (
           posts.map((post) => (
-            <li key={post._id}>
+            <li className={styles.postItem} key={post._id} onClick={() => movingPost(post._id)}>
               <span>{post.name}</span>
               <span>@{post.userid}</span>
               <p>{post.text}</p>
