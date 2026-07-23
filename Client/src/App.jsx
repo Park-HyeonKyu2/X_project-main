@@ -18,7 +18,7 @@ function PostRedirect() {
       navigate("/auth/login")
     }
   }, [navigate])
-
+ß
   return
 }
 

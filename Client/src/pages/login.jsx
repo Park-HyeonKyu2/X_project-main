@@ -45,12 +45,16 @@ export default function Login() {
         }
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <input className={styles.input} type="text" placeholder="아이디를 입력해주세요" value={userid} onChange={(e) => setUserid(e.target.value)} />
-            <input className={styles.input} type="password" placeholder="비밀번호를 입력해주세요" value={password} onChange={(e) => setPassword(e.target.value)} />
-            {error && <p>{error}</p>}
-            <button className={styles.button}>로그인</button>
-            <Link to="/auth/signup">회원가입</Link>
-        </form>
+        <>
+            <div className={styles.container}>
+                <form onSubmit={handleSubmit}>
+                    <input className={styles.input} type="text" placeholder="아이디를 입력해주세요" value={userid} onChange={(e) => setUserid(e.target.value)} />
+                    <input className={styles.input} type="password" placeholder="비밀번호를 입력해주세요" value={password} onChange={(e) => setPassword(e.target.value)} />
+                    {error && <p>{error}</p>}
+                    <button className={styles.button}>로그인</button>
+                    <Link to="/auth/signup">회원가입</Link>
+                </form>
+            </div>
+        </>
     )
 }
