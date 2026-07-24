@@ -8,7 +8,7 @@ export default function ComentSection({ post_id }) {
     const [text, setText] = useState("")
     const [comments, setComments] = useState([])
 
-    const COMMENT_API_URL = `http://127.0.0.1:5001/post/${post_id}/comments`
+    const COMMENT_API_URL = `http://127.0.0.1:18765/post/${post_id}/comments`
 
     const navigate = useNavigate()
 
