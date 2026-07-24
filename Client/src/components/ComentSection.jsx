@@ -9,7 +9,9 @@ export default function ComentSection({ post_id }) {
     const [text, setText] = useState("")
     const [comments, setComments] = useState([])
     const [user, setUser] = useState([])
-    const [isEditing, setIsEditing] = useState(false)
+
+    const [editingCommentId, setEditingCommentId] = useState(null)
+    const [editText, setEditText] = useState("")
 
     const COMMENT_API_URL = `http://127.0.0.1:18765/post/${post_id}/comments`
     const AUTH_API_URL = 'http://127.0.0.1:18765/auth/me'
@@ -76,6 +78,49 @@ export default function ComentSection({ post_id }) {
         setisEditing(!state)
     }
 
+    const handleUpdate = async (commentId) => {
+        setError("")
+
+        if (!editText.trim()) {
+            setError("수정할 내용을 입력해주세요")
+            return
+        }
+
+        try {
+            const token = localStorage.getItem("token")
+
+            if (!token) {
+                throw new Error("로그인이 필요합니다")
+            }
+
+            const response = await fetch(
+                `${COMMENT_API_URL}/${commentId}`,
+                {
+                    method: "PUT",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        text: editText.trim(),
+                    }),
+                }
+            )
+
+            if (!response.ok) {
+                throw new Error("댓글 수정에 실패했습니다.")
+            }
+
+            await getComment()
+
+            setEditingCommentId(null)
+            setEditText("")
+        } catch (error) {
+            console.error(error)
+            setError(error.message)
+        }
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError("")
@@ -124,17 +169,28 @@ export default function ComentSection({ post_id }) {
                     <p>첫 번째 댓글을 달아보세요!</p>
                 ) : (
                     comments.map((comment) => (
-                        <li className={styles.commentItem} key={comment._id}>   
-                            {isEditing === false ? <span>{comment.text}</span> : <textarea/>}
-                            {user.userid === comment.userid ? (
-                                isEditing ? (
-                                    <button onClick={() => setIsEditing(false)}>저장</button>
-                                ) : (
-                                    <button onClick={() => setIsEditing(true)}>수정</button>
-                                )
-                                ) : (
-                                ""
+                        <li className={styles.commentItem} key={comment._id}>
+                            {editingCommentId === comment._id ? (
+                                <textarea value={editText} onChange={(e) => setEditText(e.target.value)} />
+                            ) : (
+                                <span>{comment.text}</span>
                             )}
+
+                            {user.userid === comment.userid && (
+
+                                editingCommentId === comment._id ? (
+                                    <>
+                                        <button onClick={() => { handleUpdate(comment._id) }}>저장</button>
+                                        <button onClick={() => { setEditingCommentId(null); setEditText("") }}>취소</button>
+                                    </>
+                                ) : (
+                                    <>
+                                        <button onClick={() => { setEditingCommentId(comment._id); setEditText(comment.text) }}>수정</button>
+                                        <button onClick={() => handleUpdate(comment._id)}>삭제</button>
+                                    </>
+                                )
+                            )}
+
                         </li>
                     ))
                 )}
