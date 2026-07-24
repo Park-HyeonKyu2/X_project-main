@@ -4,6 +4,7 @@ import styles from "./ComentSection.module.css"
 
 
 export default function ComentSection({ post_id }) {
+    const [loading, setLoading] = useState("")
     const [error, setError] = useState("")
     const [text, setText] = useState("")
     const [comments, setComments] = useState([])
@@ -74,6 +75,7 @@ export default function ComentSection({ post_id }) {
                 throw new Error("댓글 등록을 실패했습니다.")
             }
             alert("댓글 등록을 완료했습니다")
+            await getComment()
             return data
         } catch (error) {
             console.error(error)
