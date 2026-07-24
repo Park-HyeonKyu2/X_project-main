@@ -8,10 +8,34 @@ export default function ComentSection({ post_id }) {
     const [error, setError] = useState("")
     const [text, setText] = useState("")
     const [comments, setComments] = useState([])
+    const [user, setUser] = useState([])
 
     const COMMENT_API_URL = `http://127.0.0.1:18765/post/${post_id}/comments`
+    const AUTH_API_URL = 'http://127.0.0.1:18765/auth/me'
 
     const navigate = useNavigate()
+
+    const getUser = async () => {
+        const token = localStorage.getItem("token")
+
+        if (!token) {
+            throw new Error("로그인이 필요합니다.")
+        }
+
+        const response = await fetch(AUTH_API_URL, {
+            method: "GET",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        })
+        const data = await response.json()
+
+        if (!response.ok) {
+            throw new Error(data.message || "게시물 조회에 실패했습니다.")
+        }
+
+        setUser(data)
+    }
 
     const getComment = async () => {
         const token = localStorage.getItem("token")
@@ -37,11 +61,14 @@ export default function ComentSection({ post_id }) {
     }
 
     useEffect(() => {
-        getComment().catch((error) => {
+        Promise.all([
+            getUser(),
+            getComment()
+        ]).catch((error) => {
             console.error(error)
             setError(error.message)
         })
-    }, [])
+    }, [post_id])
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -74,7 +101,6 @@ export default function ComentSection({ post_id }) {
             if (!response.ok) {
                 throw new Error("댓글 등록을 실패했습니다.")
             }
-            alert("댓글 등록을 완료했습니다")
             await getComment()
             return data
         } catch (error) {
@@ -86,12 +112,15 @@ export default function ComentSection({ post_id }) {
     return (
         <section className={styles.section}>
             <ul>
+                {console.log(user.userid)}
+                userid: {user.userid}
                 {comments.length === 0 ? (
                     <p>첫 번째 댓글을 달아보세요!</p>
                 ) : (
                     comments.map((comment) => (
                         <li className={styles.commentItem} key={comment._id}>
                             <span>{comment.text}</span>
+                            {(user.userid === comment.userid) ? <button>수정</button> : <p>dasefe</p>}
                         </li>
                     ))
                 )}

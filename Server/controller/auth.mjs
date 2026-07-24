@@ -4,7 +4,6 @@ import * as bcrypt from "bcrypt"
 import { config } from "../config.mjs"
 import jwt from "jsonwebtoken"
 
-
 // 회원가입
 export async function signup(req, res) {
     const { userid, password, name, email } = req.body
