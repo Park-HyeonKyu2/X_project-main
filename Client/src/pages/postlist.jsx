@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
 import styles from "./postlist.module.css"
-const API_URL = "http://127.0.0.1:5001/post"
+const API_URL = "http://127.0.0.1:18765/post"
 import { useNavigate } from "react-router-dom"
 
 export default function Post() {
