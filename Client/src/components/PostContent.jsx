@@ -1,5 +1,9 @@
+import styles from "./PostContent.module.css"
+
 export default function PostContent({post_id}) {
   return (
-    <p>PostContent {post_id}</p>
+    <section className={styles.section}>
+      <p>PostContent {post_id}</p>
+    </section>
   )
 }

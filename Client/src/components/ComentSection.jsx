@@ -82,7 +82,7 @@ export default function ComentSection({ post_id }) {
     }
 
     return (
-        <>
+        <section className={styles.section}>
             <ul>
                 {comments.length === 0 ? (
                     <p>첫 번째 댓글을 달아보세요!</p>
@@ -99,6 +99,6 @@ export default function ComentSection({ post_id }) {
                 {error && <p>{error}</p>}
                 <button className={styles.button} type="submit">POST</button>
             </form>
-        </>
+        </section>
     )
 }
