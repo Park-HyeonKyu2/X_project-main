@@ -33,9 +33,18 @@ router.put("/:id", isAuth, postController.updatePost)
 // http://127.0.0.1:8080/post/:id (DELETE)
 router.delete("/:id", isAuth, postController.deletePost)
 
+// 댓글 작성하기
 router.post("/:postId/comments", isAuth, commentsController.createComment)
 
+// 댓글 조회하기
 router.get("/:postId/comments", isAuth, commentsController.getByComment)
+
+// 댓글 수정하기
+router.put("/:postId/comments", isAuth, commentsController.updateComment)
+
+// 댓글 삭제하기
+router.delete("/:postId/comments", isAuth, commentsController.deleteComment)
+
 
 export default router
 

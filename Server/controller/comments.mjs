@@ -17,11 +17,11 @@ export async function getByComment(req, res) {
 
 
 // 댓글을 삭제하는 함수
-export async function deletePost(req, res) {
+export async function deleteComment(req, res) {
     const id = req.params.id
     const post = await commentRepository.getById(id)
     if(!post){
-        return res.status(404).json({message: `${id}의 포스트가 없습니다`})
+        return res.status(404).json({message: `${id}의 댓글이 없습니다`})
     }
     if(post.idx !== req.id){ 
         return res.sendStatus(403)
@@ -31,12 +31,12 @@ export async function deletePost(req, res) {
 }
 
 // 포스트를 변경하는 함수
-export async function updatePost(req, res) {
+export async function updateComment(req, res) {
     const id = req.params.id
     const text = req.body.text
     const post = await commentRepository.getById(id)
     if(!post){
-        return res.status(404).json({ message: `${id}의 포스트가 없습니다`})
+        return res.status(404).json({ message: `${id}의 댓글이 없습니다`})
     }
     if (post.idx !== req.id) {
         return res.sendStatus(403)

@@ -9,6 +9,7 @@ export default function ComentSection({ post_id }) {
     const [text, setText] = useState("")
     const [comments, setComments] = useState([])
     const [user, setUser] = useState([])
+    const [isEditing, setIsEditing] = useState(false)
 
     const COMMENT_API_URL = `http://127.0.0.1:18765/post/${post_id}/comments`
     const AUTH_API_URL = 'http://127.0.0.1:18765/auth/me'
@@ -70,6 +71,11 @@ export default function ComentSection({ post_id }) {
         })
     }, [post_id])
 
+    const handleEdit = (state) => {
+        console.log("state: ", state)
+        setisEditing(!state)
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError("")
@@ -118,9 +124,17 @@ export default function ComentSection({ post_id }) {
                     <p>첫 번째 댓글을 달아보세요!</p>
                 ) : (
                     comments.map((comment) => (
-                        <li className={styles.commentItem} key={comment._id}>
-                            <span>{comment.text}</span>
-                            {(user.userid === comment.userid) ? <button>수정</button> : <p>dasefe</p>}
+                        <li className={styles.commentItem} key={comment._id}>   
+                            {isEditing === false ? <span>{comment.text}</span> : <textarea/>}
+                            {user.userid === comment.userid ? (
+                                isEditing ? (
+                                    <button onClick={() => setIsEditing(false)}>저장</button>
+                                ) : (
+                                    <button onClick={() => setIsEditing(true)}>수정</button>
+                                )
+                                ) : (
+                                ""
+                            )}
                         </li>
                     ))
                 )}
