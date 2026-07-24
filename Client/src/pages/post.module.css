@@ -1,18 +1,340 @@
-* {
-    padding: 0;
-    margin: 0;
+:global(#root):has(> .section),
+:global(#root):has(> .section) * {
     box-sizing: border-box;
 }
 
-.section {
+:global(#root):has(> .section) {
+    position: relative;
     display: flex;
-    text-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 130px 20px 70px;
+    color: #202a2d;
+    background: #f1f2f2;
+    border: 0;
 }
 
-.contentLayout > :first-child {
-  flex: 2;
+/* Gradient hourglass logo */
+:global(#root):has(> .section)::before {
+    position: absolute;
+    top: 36px;
+    left: calc(50% - 365px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 63px;
+    height: 63px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 39px;
+    font-weight: 300;
+    line-height: 1;
+    content: "⌛︎";
+    background: linear-gradient(145deg, #a9ddd4 8%, #b9dcd6 48%, #f5afd0 100%);
+    border-radius: 12px;
 }
 
-.contentLayout > :last-child {
-  flex: 1;
+/* The id is still available in the URL, so hide the development heading. */
+:global(#root):has(> .section) > h4 {
+    display: none;
+}
+
+.section {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 56%) minmax(0, 44%);
+    width: min(100%, 730px);
+    height: 530px;
+    overflow: hidden;
+    text-align: left;
+    background: #fff;
+    border-radius: 25px;
+    box-shadow:
+        0 3px 7px rgba(32, 42, 45, 0.11),
+        0 1px 2px rgba(32, 42, 45, 0.08);
+}
+
+/* Close decoration from the Figma header */
+.section::after {
+    position: absolute;
+    top: 21px;
+    right: 18px;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 27px;
+    font-weight: 700;
+    line-height: 1;
+    content: "×";
+    background: #d8dada;
+    border-radius: 50%;
+}
+
+/* Post content panel */
+.section > section:first-child {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    padding: 84px 52px 70px;
+    overflow: auto;
+    background: #fff;
+    border: 0;
+}
+
+.section > section:first-child::before {
+    position: absolute;
+    top: 24px;
+    left: 50px;
+    width: 40px;
+    height: 40px;
+    content: "";
+    background: #142756;
+    border-radius: 50%;
+}
+
+.section > section:first-child > p {
+    margin: 0;
+    overflow-wrap: anywhere;
+    color: #202524;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.45;
+    white-space: pre-wrap;
+}
+
+/* Comment panel */
+.section > section:last-child {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    min-width: 0;
+    padding: 81px 17px 17px;
+    background: #fff;
+    border: 0;
+}
+
+.section > section:last-child > ul {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #c9cecc transparent;
+}
+
+.section > section:last-child > ul > p {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 76px;
+    margin: 0;
+    padding: 16px;
+    color: #8d9190;
+    font-size: 13px;
+    text-align: center;
+    background: #f1f2f2;
+    border-radius: 15px;
+}
+
+.section > section:last-child > ul > li {
+    position: relative;
+    min-height: 76px;
+    margin: 0;
+    padding: 34px 16px 12px 42px;
+    list-style: none;
+    background: #f1f2f2;
+    border: 0;
+    border-radius: 15px;
+}
+
+.section > section:last-child > ul > li::before {
+    position: absolute;
+    top: 13px;
+    left: 15px;
+    width: 24px;
+    height: 24px;
+    content: "";
+    background: #761616;
+    border-radius: 50%;
+}
+
+.section > section:last-child > ul > li > span {
+    display: block;
+    overflow-wrap: anywhere;
+    color: #303534;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+.section > section:last-child > form {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto auto;
+    gap: 4px 8px;
+    flex: 0 0 auto;
+    margin-top: 10px;
+    padding: 19px 13px 10px 46px;
+    background: #f1f2f2;
+    border-radius: 15px;
+}
+
+.section > section:last-child > form::before {
+    position: absolute;
+    top: 19px;
+    left: 15px;
+    width: 24px;
+    height: 24px;
+    content: "";
+    background: #142756;
+    border-radius: 50%;
+}
+
+.section > section:last-child textarea {
+    grid-column: 1 / -1;
+    width: 100%;
+    height: 52px;
+    min-height: 52px;
+    padding: 9px 11px;
+    color: #263234;
+    font: inherit;
+    font-size: 12px;
+    line-height: 1.4;
+    resize: none;
+    background: #f1f2f2;
+    border: 1px solid #dfe2e1;
+    border-radius: 4px;
+    outline: none;
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.section > section:last-child textarea::placeholder {
+    color: #929795;
+    opacity: 1;
+}
+
+.section > section:last-child textarea:focus {
+    border-color: #98bfb7;
+    box-shadow: 0 0 0 3px rgba(152, 191, 183, 0.25);
+}
+
+.section > section:last-child form > p {
+    grid-column: 1;
+    margin: 2px 0 0;
+    color: #dc5b62;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.section > section:last-child form > button {
+    grid-column: 2;
+    justify-self: end;
+    width: 56px;
+    height: 25px;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+    font: inherit;
+    font-size: 16px;
+    font-weight: 800;
+    text-transform: lowercase;
+    cursor: pointer;
+    background: #98bfb7;
+    border: 0;
+    border-radius: 9px;
+    transition:
+        background-color 160ms ease,
+        transform 160ms ease;
+}
+
+.section > section:last-child form > button:hover {
+    background: #87afa7;
+}
+
+.section > section:last-child form > button:active {
+    background: #769f97;
+    transform: translateY(1px);
+}
+
+.section > section:last-child form > button:focus-visible {
+    outline: 3px solid rgba(118, 159, 151, 0.5);
+    outline-offset: 2px;
+}
+
+@media (max-width: 780px) {
+    :global(#root):has(> .section) {
+        align-items: flex-start;
+        padding-top: 120px;
+    }
+
+    :global(#root):has(> .section)::before {
+        top: 28px;
+        left: 24px;
+    }
+
+    .section {
+        grid-template-columns: 1fr;
+        height: auto;
+        min-height: 700px;
+        overflow: visible;
+    }
+
+    .section > section:first-child {
+        min-height: 300px;
+        padding: 80px 35px 45px;
+        border-radius: 25px 25px 0 0;
+    }
+
+    .section > section:first-child::before {
+        left: 34px;
+    }
+
+    .section > section:last-child {
+        min-height: 400px;
+        padding: 25px 18px 18px;
+        border-top: 1px solid #edf0ef;
+        border-radius: 0 0 25px 25px;
+    }
+
+    .section > section:last-child > ul {
+        max-height: 350px;
+    }
+}
+
+@media (max-width: 480px) {
+    :global(#root):has(> .section) {
+        padding-right: 14px;
+        padding-left: 14px;
+    }
+
+    .section::after {
+        top: 16px;
+        right: 15px;
+    }
+
+    .section > section:first-child {
+        padding-right: 24px;
+        padding-left: 24px;
+    }
+
+    .section > section:first-child::before {
+        left: 24px;
+    }
 }

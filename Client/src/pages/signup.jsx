@@ -1,5 +1,5 @@
 import { useState } from "react"
-import styles from "./login.module.css"
+import styles from "./signup.module.css"
 import { useNavigate, Link } from "react-router-dom"
 
 const API_URL = "http://127.0.0.1:18765/auth/signup"
@@ -40,14 +40,12 @@ export default function Signup() {
         return data
         }
 
-
     return (
         <form onSubmit={handleSubmit}>
             <input className={styles.input} type="text" placeholder="닉네임을 입력해주세요" value={name} onChange={(e) => setName(e.target.value)} />
             <input className={styles.input} type="text" placeholder="아이디를 입력해주세요" value={userid} onChange={(e) => setUserid(e.target.value)} />
             <input className={styles.input} type="password" placeholder="비밀번호를 입력해주세요" value={password} onChange={(e) => setPassword(e.target.value)} />
             <input className={styles.input} type="text" placeholder="이메일을 입력해주세요" value={email} onChange={(e) => setEmail(e.target.value)} />
-
 
             {error && <p>{error}</p>}
             <button className={styles.button}>회원가입</button>

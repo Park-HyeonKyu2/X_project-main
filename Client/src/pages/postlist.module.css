@@ -1,9 +1,294 @@
+:global(#root):has(> form > textarea.input),
+:global(#root):has(> form > textarea.input) * {
+    box-sizing: border-box;
+}
+
+:global(#root):has(> form > textarea.input) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100svh;
+    padding: 135px 0 60px;
+    color: #202a2d;
+    text-align: left;
+    background: #fff;
+    border: 0;
+}
+
+/* Gradient hourglass logo */
+:global(#root):has(> form > textarea.input)::before {
+    position: absolute;
+    top: 31px;
+    left: calc(50% - 343px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 63px;
+    height: 63px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 39px;
+    font-weight: 300;
+    line-height: 1;
+    content: "⌛︎";
+    background: linear-gradient(145deg, #a9ddd4 8%, #b9dcd6 48%, #f5afd0 100%);
+    border-radius: 12px;
+}
+
+/* Logout button */
+:global(#root):has(> form > textarea.input) > button:first-child {
+    position: absolute;
+    top: 31px;
+    right: calc(50% - 343px);
+    width: 109px;
+    height: 33px;
+    padding: 0;
+    color: #fff;
+    font: inherit;
+    font-size: 14px;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: #98bfb7;
+    border: 0;
+    border-radius: 9px;
+    transition:
+        background-color 160ms ease,
+        transform 160ms ease;
+}
+
+:global(#root):has(> form > textarea.input) > button:first-child:hover {
+    background: #87afa7;
+}
+
+:global(#root):has(> form > textarea.input) > button:first-child:active {
+    background: #769f97;
+    transform: translateY(1px);
+}
+
+/* Post composer */
+:global(#root):has(> form > textarea.input) > form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(calc(100% - 40px), 730px);
+    min-height: 191px;
+    margin: 0 auto 41px;
+    padding: 48px 46px 21px;
+    background: #f1f2f2;
+    border-radius: 25px;
+}
+
+:global(#root):has(> form > textarea.input) > form::before {
+    position: absolute;
+    top: 16px;
+    left: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 0;
+    font-weight: 800;
+    content: "";
+    background: #175c35;
+    border-radius: 50%;
+}
+
+.input {
+    display: block;
+    width: 100%;
+    height: 80px;
+    min-height: 80px;
+    padding: 14px 16px;
+    overflow: auto;
+    color: #263234;
+    font: inherit;
+    font-size: 15px;
+    line-height: 1.5;
+    resize: vertical;
+    background: #f1f2f2;
+    border: 1px solid #dfe2e1;
+    border-radius: 14px;
+    outline: none;
+    transition:
+        border-color 160ms ease,
+        box-shadow 160ms ease;
+}
+
+.input::placeholder {
+    color: #8d9190;
+    opacity: 1;
+}
+
+.input:focus {
+    border-color: #98bfb7;
+    box-shadow: 0 0 0 3px rgba(152, 191, 183, 0.25);
+}
+
+:global(#root):has(> form > textarea.input) > form > p {
+    margin: 5px 0 -17px;
+    color: #dc5b62;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.button {
+    align-self: flex-end;
+    width: 127px;
+    height: 33px;
+    margin-top: 10px;
+    padding: 0;
+    color: #fff;
+    font: inherit;
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: lowercase;
+    cursor: pointer;
+    background: #98bfb7;
+    border: 0;
+    border-radius: 9px;
+    transition:
+        background-color 160ms ease,
+        transform 160ms ease;
+}
+
+.button:hover {
+    background: #87afa7;
+}
+
+.button:active {
+    background: #769f97;
+    transform: translateY(1px);
+}
+
+.button:focus-visible,
+:global(#root):has(> form > textarea.input) > button:first-child:focus-visible {
+    outline: 3px solid rgba(118, 159, 151, 0.5);
+    outline-offset: 3px;
+}
+
+/* Post list */
+:global(#root):has(> form > textarea.input) > ul {
+    display: flex;
+    flex-direction: column;
+    gap: 21px;
+    width: min(calc(100% - 40px), 730px);
+    margin: 0 auto;
+    padding: 0;
+}
+
+:global(#root):has(> form > textarea.input) > ul > p {
+    margin: 0;
+    padding: 48px 20px;
+    color: #8d9190;
+    text-align: center;
+    background: #f1f2f2;
+    border-radius: 25px;
+}
+
 .postItem {
+    position: relative;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 6px;
+    align-content: start;
+    min-height: 172px;
+    margin: 0;
+    padding: 29px 46px 28px;
     list-style: none;
-    border: 2px solid #000;
-    margin: 10px;
+    cursor: pointer;
+    background: #f1f2f2;
+    border: 0;
+    border-radius: 25px;
+    transition:
+        background-color 160ms ease,
+        transform 160ms ease,
+        box-shadow 160ms ease;
 }
 
 .postItem:hover {
-    cursor: pointer;
+    background: #ebeeee;
+    box-shadow: 0 8px 20px rgba(32, 42, 45, 0.08);
+    transform: translateY(-2px);
+}
+
+.postItem:focus-within {
+    outline: 3px solid rgba(152, 191, 183, 0.35);
+    outline-offset: 2px;
+}
+
+.postItem > span:first-child {
+    grid-column: 1;
+    grid-row: 1;
+    color: #303534;
+    font-size: 14px;
+    font-weight: 800;
+    line-height: 1.25;
+}
+
+.postItem > span:nth-child(2) {
+    grid-column: 2;
+    grid-row: 1;
+    align-self: end;
+    color: #777d7b;
+    font-size: 10px;
+    line-height: 1.25;
+}
+
+.postItem > p {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: 12px 0 0;
+    overflow-wrap: anywhere;
+    color: #202524;
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 1.45;
+    white-space: pre-wrap;
+}
+
+@media (max-width: 780px) {
+    :global(#root):has(> form > textarea.input) {
+        padding-top: 120px;
+    }
+
+    :global(#root):has(> form > textarea.input)::before {
+        top: 24px;
+        left: 24px;
+    }
+
+    :global(#root):has(> form > textarea.input) > button:first-child {
+        top: 24px;
+        right: 24px;
+    }
+}
+
+@media (max-width: 520px) {
+    :global(#root):has(> form > textarea.input) > form {
+        width: calc(100% - 28px);
+        min-height: 184px;
+        padding: 46px 20px 18px;
+        border-radius: 22px;
+    }
+
+    :global(#root):has(> form > textarea.input) > form::before {
+        left: 22px;
+    }
+
+    :global(#root):has(> form > textarea.input) > ul {
+        width: calc(100% - 28px);
+        gap: 16px;
+    }
+
+    .postItem {
+        min-height: 150px;
+        padding: 25px 24px;
+        border-radius: 22px;
+    }
 }

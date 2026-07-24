@@ -1,23 +1,389 @@
-* {
-    padding: 0px;
-    margin: 0px;
+.container,
+.container * {
     box-sizing: border-box;
 }
 
 .container {
-    margin: auto;
-    padding: 20px;
     display: flex;
-    background-color: blue;
+    align-items: center;
+    justify-content: center;
+    width: 100vw;
+    min-height: 100vh;
+    min-height: 100svh;
+    margin-left: calc(50% - 50vw);
+    padding: 40px 20px;
+    background: #202a2d;
+}
+
+.container form {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(100%, 498px);
+    min-height: 668px;
+    padding: 235px 75px 68px;
+    overflow: hidden;
+    text-align: left;
+    background: #f1f2f2;
+    border-radius: 54px;
+}
+
+/* Logo background */
+.container form::before {
+    position: absolute;
+    top: 74px;
+    left: 50%;
+    width: 110px;
+    height: 110px;
+    content: "";
+    background: linear-gradient(145deg, #a9ddd4 8%, #b9dcd6 48%, #f5afd0 100%);
+    border-radius: 20px;
+    transform: translateX(-50%);
+}
+
+/* Hourglass logo */
+.container form::after {
+    position: absolute;
+    top: 82px;
+    left: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 94px;
+    height: 94px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 64px;
+    font-weight: 300;
+    line-height: 1;
+    content: "⌛︎";
+    transform: translateX(-50%);
+}
+
+.container form > p {
+    color: #98c5bc;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 1.4;
+    text-align: left;
+}
+
+/* Change the existing Korean field labels to the Figma labels. */
+.container form > p:first-child,
+.container form > p:has(+ .input) {
+    margin: 0 12px 9px;
+    font-size: 0;
+}
+
+.container form > p:first-child::after {
+    font-size: 18px;
+    content: "ID";
+}
+
+.container form > p:has(+ .input):not(:first-child)::after {
+    font-size: 18px;
+    content: "Password";
 }
 
 .input {
-    margin: 10px;
-    padding: 5px;
-    background-color: aliceblue;
-    display: block;
-    height: 25px;
-    width: 180px;
-    border: none;
-    border-radius: 5px;
+    width: 100%;
+    height: 61px;
+    padding: 0 20px;
+    color: #263234;
+    font: inherit;
+    background: #fff;
+    border: 0;
+    border-radius: 16px;
+    outline: none;
+    transition: box-shadow 160ms ease;
+}
+
+.input::placeholder {
+    color: transparent;
+}
+
+.input:focus {
+    box-shadow: 0 0 0 3px rgba(152, 197, 188, 0.45);
+}
+
+.input + p {
+    margin-top: 24px;
+}
+
+/* Login error message */
+.container form > p:has(+ .button) {
+    margin: 10px 4px -34px;
+    color: #dc5b62;
+    font-size: 13px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.button {
+    width: 100%;
+    height: 66px;
+    margin-top: 51px;
+    color: #fff;
+    font: inherit;
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: #98bfb7;
+    border: 0;
+    border-radius: 20px;
+    transition:
+        background-color 160ms ease,
+        transform 160ms ease;
+}
+
+.button:hover {
+    background: #87afa7;
+}
+
+.button:active {
+    background: #769f97;
+    transform: translateY(1px);
+}
+
+.button:focus-visible {
+    outline: 3px solid rgba(118, 159, 151, 0.55);
+    outline-offset: 3px;
+}
+
+/* Hide the existing helper copy and leave only the signup link. */
+.button + p {
+    display: none;
+}
+
+.container form > a {
+    align-self: center;
+    margin-top: 8px;
+    color: #929292;
+    font-size: 16px;
+    line-height: 1.4;
+    text-decoration: none;
+    transition: color 160ms ease;
+}
+
+.container form > a:hover {
+    color: #739f97;
+    text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+    .container {
+        padding: 24px 16px;
+    }
+
+    .container form {
+        min-height: 600px;
+        padding: 190px 32px 48px;
+        border-radius: 38px;
+    }
+
+    .container form::before {
+        top: 48px;
+        width: 100px;
+        height: 100px;
+    }
+
+    .container form::after {
+        top: 51px;
+    }
+
+    .button {
+        height: 60px;
+        margin-top: 42px;
+        font-size: 25px;
+    }
+}
+
+/* -------------------------------------------------------------------------- */
+/* Signup page                                                                */
+/* signup.jsx currently imports this module, so the four-input form is styled */
+/* separately without requiring a JSX change.                                 */
+/* -------------------------------------------------------------------------- */
+
+#root > form:has(> .input:nth-of-type(4)),
+#root > form:has(> .input:nth-of-type(4)) * {
+    box-sizing: border-box;
+}
+
+#root > form:has(> .input:nth-of-type(4)) {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100vw;
+    min-height: 100vh;
+    min-height: 100svh;
+    margin: 0 0 0 calc(50% - 50vw);
+    padding: max(200px, calc(50svh - 310px)) 20px 70px;
+    overflow: hidden;
+    background: #202a2d;
+}
+
+#root > form:has(> .input:nth-of-type(4))::before {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 0;
+    width: min(calc(100vw - 40px), 498px);
+    height: 770px;
+    content: "";
+    background: #f1f2f2;
+    border-radius: 54px;
+    transform: translate(-50%, -50%);
+}
+
+#root > form:has(> .input:nth-of-type(4))::after {
+    position: absolute;
+    top: calc(50% - 336px);
+    left: 50%;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 110px;
+    height: 110px;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    font-size: 64px;
+    font-weight: 300;
+    line-height: 1;
+    content: "⌛︎";
+    background: linear-gradient(145deg, #a9ddd4 8%, #b9dcd6 48%, #f5afd0 100%);
+    border-radius: 20px;
+    transform: translateX(-50%);
+}
+
+#root > form:has(> .input:nth-of-type(4)) > .input {
+    position: relative;
+    z-index: 2;
+    flex: 0 0 auto;
+    width: min(calc(100vw - 150px), 326px);
+    height: 61px;
+    margin: 0 0 28px;
+    padding: 0 20px;
+    color: #263234;
+    font: inherit;
+    font-size: 16px;
+    background: #fff;
+    border: 0;
+    border-radius: 13px;
+    outline: none;
+}
+
+#root > form:has(> .input:nth-of-type(4)) > .input::placeholder {
+    color: #929292;
+    opacity: 1;
+}
+
+#root > form:has(> .input:nth-of-type(4)) > .input:focus {
+    box-shadow: 0 0 0 3px rgba(152, 197, 188, 0.45);
+}
+
+/* Figma order: Nickname, e-mail, ID, Password */
+#root > form:has(> .input:nth-of-type(4)) > .input:nth-of-type(1) {
+    order: 1;
+}
+
+#root > form:has(> .input:nth-of-type(4)) > .input:nth-of-type(4) {
+    order: 2;
+}
+
+#root > form:has(> .input:nth-of-type(4)) > .input:nth-of-type(2) {
+    order: 3;
+}
+
+#root > form:has(> .input:nth-of-type(4)) > .input:nth-of-type(3) {
+    order: 4;
+}
+
+#root > form:has(> .input:nth-of-type(4)) > p {
+    position: relative;
+    z-index: 2;
+    order: 5;
+    margin: -17px 0 8px;
+    color: #dc5b62;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+#root > form:has(> .input:nth-of-type(4)) > .button {
+    position: relative;
+    z-index: 2;
+    order: 6;
+    width: min(calc(100vw - 190px), 248px);
+    height: 55px;
+    margin-top: 12px;
+    color: #fff;
+    font-size: 25px;
+    font-weight: 800;
+    cursor: pointer;
+    background: #98bfb7;
+    border: 0;
+    border-radius: 15px;
+}
+
+#root > form:has(> .input:nth-of-type(4)) > .button:hover {
+    background: #87afa7;
+}
+
+#root > form:has(> .input:nth-of-type(4)) > .button:active {
+    background: #769f97;
+    transform: translateY(1px);
+}
+
+#root > form:has(> .input:nth-of-type(4)) > a {
+    position: relative;
+    z-index: 2;
+    order: 7;
+    margin-top: 13px;
+    color: #929292;
+    font-size: 0;
+    text-decoration: none;
+}
+
+#root > form:has(> .input:nth-of-type(4)) > a::after {
+    font-size: 16px;
+    content: "로그인 페이지로";
+}
+
+#root > form:has(> .input:nth-of-type(4)) > a:hover {
+    color: #739f97;
+    text-decoration: underline;
+}
+
+@media (max-width: 640px) {
+    #root > form:has(> .input:nth-of-type(4)) {
+        min-height: 760px;
+        padding-top: 165px;
+    }
+
+    #root > form:has(> .input:nth-of-type(4))::before {
+        top: 20px;
+        width: min(calc(100vw - 32px), 430px);
+        height: 720px;
+        transform: translateX(-50%);
+    }
+
+    #root > form:has(> .input:nth-of-type(4))::after {
+        top: 58px;
+        width: 96px;
+        height: 96px;
+        font-size: 56px;
+    }
+
+    #root > form:has(> .input:nth-of-type(4)) > .input {
+        width: min(calc(100vw - 88px), 326px);
+        height: 56px;
+        margin-bottom: 24px;
+    }
+
+    #root > form:has(> .input:nth-of-type(4)) > .button {
+        width: min(calc(100vw - 130px), 248px);
+    }
 }
