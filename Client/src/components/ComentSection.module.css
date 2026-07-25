@@ -100,6 +100,116 @@
     text-decoration: underline;
 }
 
-.editInput {
+/* 댓글 작성창의 로그인 사용자 프로필 */
+.composerProfile {
+    display: flex;
+    grid-column: 1 / -1;
+    align-items: center;
+    gap: 7px;
+    min-width: 0;
+}
+
+.composerAvatar,
+.composerAvatarFallback {
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.composerAvatar {
+    display: block;
+    object-fit: cover;
+}
+
+.composerAvatarFallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: #15285c;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.composerAuthorInfo {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.1;
+}
+
+.composerAuthorInfo strong {
+    overflow: hidden;
+    color: #303534;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.composerAuthorInfo span {
+    margin-top: 2px;
+    overflow: hidden;
+    color: #7d8381;
+    font-size: 8px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 수정 textarea */
+.commentItem .editInput {
+    display: block;
+    width: 100%;
+    height: 48px;
+    min-height: 48px;
+    margin: 9px 0 0;
+    padding: 10px 12px;
+
+    color: #303534;
+    font: inherit;
+    font-size: 12px;
+    line-height: 1.4;
+
+    resize: none;
+    background: #fff;
+    border: 1px solid #cbd9d6;
+    border-radius: 11px;
+    outline: none;
+}
+
+/* 수정 중에는 저장·취소 버튼을 textarea 아래에 배치 */
+.commentItem:has(.editInput) .commentActions {
+    position: static;
+    display: flex;
+    justify-content: flex-end;
+    gap: 6px;
     margin-top: 7px;
+}
+
+/* 저장·취소 버튼 공통 */
+.commentItem:has(.editInput) .commentActions button {
+    padding: 4px 8px;
+    color: #496b65;
+    font-size: 10px;
+    background: #e3ecea;
+    border: 0;
+    border-radius: 7px;
+}
+
+/* 저장 버튼 */
+.commentItem:has(.editInput) .commentActions button:first-child {
+    color: #fff;
+    background: #98bfb7;
+}
+
+/* 취소 버튼 */
+.commentItem:has(.editInput) .commentActions button:last-child {
+    color: #66706e;
+    background: #e2e5e4;
+}
+
+/* textarea 선택 효과 */
+.commentItem .editInput:focus {
+    border-color: #85b7ac;
+    box-shadow: 0 0 0 3px rgba(133, 183, 172, 0.18);
 }

@@ -312,6 +312,26 @@ export default function ComentSection({ post_id }) {
             </ul>
             {/* 새 댓글 작성 */}
             <form onSubmit={handleSubmit}>
+                {/* 현재 로그인한 사용자의 프로필 */}
+                <div className={styles.composerProfile}>
+                    {user.profileImage ? (
+                        <img
+                            className={styles.composerAvatar}
+                            src={user.profileImage}
+                            alt={`${user.name || user.userid} 프로필`}
+                        />
+                    ) : (
+                        <div className={styles.composerAvatarFallback}>
+                            {user.name?.charAt(0) || user.userid?.charAt(0) || "U"}
+                        </div>
+                    )}
+
+                    <div className={styles.composerAuthorInfo}>
+                        <strong>{user.name || user.userid}</strong>
+                        <span>@{user.userid}</span>
+                    </div>
+                </div>
+
                 <textarea className={styles.input} placeholder="댓글을 작성해주세요" value={text} onChange={(e) => setText(e.target.value)} />
                 {error && <p>{error}</p>}
                 <button className={styles.button} type="submit">POST</button>

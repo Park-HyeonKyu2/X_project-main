@@ -144,6 +144,7 @@
 
 .section > section:last-child > ul > li {
     position: relative;
+    flex: 0 0 auto;
     min-height: 100px;
     margin: 0;
 
@@ -154,6 +155,13 @@
     background: #f1f2f2;
     border: 0;
     border-radius: 15px;
+}
+
+/* 수정 중에는 textarea와 저장·취소 버튼이 카드 안에 들어오도록 높이를 확보 */
+.section > section:last-child > ul > li:has(textarea) {
+    min-height: 148px;
+    padding-bottom: 12px;
+    overflow: hidden;
 }
 
 /* .section > section:last-child > ul > li::before {
@@ -171,40 +179,34 @@
     position: relative;
     display: grid;
     grid-template-columns: 1fr auto;
-    grid-template-rows: auto auto;
-    gap: 4px 8px;
+    grid-template-rows: auto auto auto;
+    gap: 8px 6px;
     flex: 0 0 auto;
     margin-top: 10px;
-    padding: 19px 13px 10px 46px;
+    padding: 12px;
     background: #f1f2f2;
-    border-radius: 15px;
+    border-radius: 20px;
 }
 
 .section > section:last-child > form::before {
-    position: absolute;
-    top: 19px;
-    left: 15px;
-    width: 24px;
-    height: 24px;
-    content: "";
-    background: #142756;
-    border-radius: 50%;
+    display: none;
+    content: none;
 }
 
 .section > section:last-child textarea {
     grid-column: 1 / -1;
     width: 100%;
-    height: 52px;
-    min-height: 52px;
-    padding: 9px 11px;
+    height: 56px;
+    min-height: 56px;
+    padding: 10px 12px;
     color: #263234;
     font: inherit;
     font-size: 12px;
     line-height: 1.4;
     resize: none;
-    background: #f1f2f2;
-    border: 1px solid #dfe2e1;
-    border-radius: 4px;
+    background: #fafbfb;
+    border: 1px solid #d9dfdd;
+    border-radius: 14px;
     outline: none;
     transition:
         border-color 160ms ease,
@@ -221,8 +223,20 @@
     box-shadow: 0 0 0 3px rgba(152, 191, 183, 0.25);
 }
 
+/* 댓글 수정 textarea는 작성 textarea보다 작게 표시 */
+.section > section:last-child > ul > li textarea {
+    height: 48px;
+    min-height: 48px;
+    margin: 9px 0 0;
+    padding: 10px 12px;
+    background: #fff;
+    border: 1px solid #cbd9d6;
+    border-radius: 11px;
+}
+
 .section > section:last-child form > p {
     grid-column: 1;
+    grid-row: 3;
     margin: 2px 0 0;
     color: #dc5b62;
     font-size: 10px;
@@ -231,20 +245,22 @@
 
 .section > section:last-child form > button {
     grid-column: 2;
+    grid-row: 3;
     justify-self: end;
-    width: 56px;
-    height: 25px;
+    align-self: end;
+    width: 47px;
+    height: 21px;
     margin: 0;
     padding: 0;
     color: #fff;
     font: inherit;
-    font-size: 16px;
+    font-size: 13px;
     font-weight: 800;
     text-transform: lowercase;
     cursor: pointer;
     background: #98bfb7;
     border: 0;
-    border-radius: 9px;
+    border-radius: 8px;
     transition:
         background-color 160ms ease,
         transform 160ms ease;
