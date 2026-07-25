@@ -144,16 +144,19 @@
 
 .section > section:last-child > ul > li {
     position: relative;
-    min-height: 76px;
+    min-height: 100px;
     margin: 0;
-    padding: 34px 16px 12px 42px;
+
+    /* 아래쪽 32px은 수정·삭제 버튼 공간 */
+    padding: 12px 15px 32px;
+
     list-style: none;
     background: #f1f2f2;
     border: 0;
     border-radius: 15px;
 }
 
-.section > section:last-child > ul > li::before {
+/* .section > section:last-child > ul > li::before {
     position: absolute;
     top: 13px;
     left: 15px;
@@ -162,16 +165,7 @@
     content: "";
     background: #761616;
     border-radius: 50%;
-}
-
-.section > section:last-child > ul > li > span {
-    display: block;
-    overflow-wrap: anywhere;
-    color: #303534;
-    font-size: 12px;
-    line-height: 1.4;
-    white-space: pre-wrap;
-}
+} */
 
 .section > section:last-child > form {
     position: relative;

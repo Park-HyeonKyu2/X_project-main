@@ -18,15 +18,21 @@ export async function getByComment(req, res) {
 
 // 댓글을 삭제하는 함수
 export async function deleteComment(req, res) {
+    // 주소의 댓글 di 가져오기
     const id = req.params.id
-    const post = await commentRepository.getById(id)
-    if(!post){
-        return res.status(404).json({message: `${id}의 댓글이 없습니다`})
+    
+    const comment = await commentRepository.getById(id)
+
+    if (!comment) {
+        return res.status(404).json({ message: `${id}의 댓글이 없습니다` })
     }
-    if(post.authorId !== req.id){ 
-        return res.sendStatus(403)
+
+    if (comment.authorId.toString() !== req.id) {
+        return res.status(403).json({ message: "자신이 작성한 댓글만 삭제할 수 있습니다." })
     }
+
     await commentRepository.remove(id)
+
     res.sendStatus(204)
 }
 
@@ -35,8 +41,8 @@ export async function updateComment(req, res) {
     const id = req.params.id
     const text = req.body.text
     const post = await commentRepository.getById(id)
-    if(!post){
-        return res.status(404).json({ message: `${id}의 댓글이 없습니다`})
+    if (!post) {
+        return res.status(404).json({ message: `${id}의 댓글이 없습니다` })
     }
     if (post.authorId.toString() !== req.id) {
         return res.sendStatus(403)

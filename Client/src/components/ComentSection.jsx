@@ -83,7 +83,7 @@ export default function ComentSection({ post_id }) {
             console.error(error)
             setError(error.message)
         })
-    // 새 게시글로 이동할 때마다 useEffect를 다시 실행시킨다.
+        // 새 게시글로 이동할 때마다 useEffect를 다시 실행시킨다.
     }, [post_id])
 
     /**
@@ -186,6 +186,60 @@ export default function ComentSection({ post_id }) {
         }
     }
 
+    const handleDelete = async (commentId) => {
+        const isConfirmed = window.confirm("댓글을 삭제하시겠습니까?")
+
+        if (!isConfirmed) {
+            return
+        }
+
+        setError("")
+
+        try {
+            const token = localStorage.getItem("token")
+            console.log("token: ", token)
+
+            if (!token) {
+                throw new Error("로그인이 필요합니다.")
+            }
+
+            const response = await fetch(`${COMMENT_API_URL}/${commentId}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+
+               
+            if (response.status === 403) {
+                throw new Error("자신이 작성한 댓글만 삭제할 수 있습니다.")
+            }
+
+            if (response.status === 404) {
+                throw new Error("이미 삭제되었거나 존재하지 않는 댓글입니다.")
+            }
+
+            if (!response.ok) {
+                throw new Error("댓글 삭제에 실패했습니다.")
+            }
+
+            setComments((previousComments) =>
+                previousComments.filter(
+                    (comment) => comment._id !== commentId
+                )
+            )
+
+            if (editingCommentId === commentId) {
+                setEditingCommentId(null)
+                setEditText("")
+            }
+        } catch (error) {
+            console.error(error)
+            setError(error.message)
+        }
+    }
+
+
     return (
         <section className={styles.section}>
             <ul>
@@ -195,28 +249,63 @@ export default function ComentSection({ post_id }) {
                     // 댓글 배열을 순회하며 각 댓글을 화면에 출력
                     comments.map((comment) => (
                         <li className={styles.commentItem} key={comment._id}>
+                            {/* 댓글 작성자의 프로필 영역 */}
+                            <div className={styles.commentHeader}>
+                                {/* 작성자에게 등록된 프로필 이미지가 있는지 확인 */}
+                                {comment.profileImage ? (
+                                    // 프로필 이미지가 있으면 실제 이미지를 표시
+                                    <img
+                                        className={styles.commentAvatar}
+                                        src={comment.profileImage}
+                                        alt={`${comment.name} 프로필`}
+                                    />
+                                ) : (
+                                    // 프로필 이미지가 없으면 닉네임 또는 아이디의 첫 글자를 표시
+                                    <div className={styles.commentAvatarFallback}>
+                                        {comment.name?.charAt(0) || comment.userid?.charAt(0) || "U"}
+                                    </div>
+                                )}
+                                {/* 댓글 작성자의 닉네임과 아이디 영역 */}
+                                <div className={styles.commentAuthorInfo}>
+                                    <strong>{comment.name}</strong>
+                                    <span>@{comment.userid}</span>
+                                </div>
+                            </div>
+
                             {/* 현재 수정 중인 댓글만 textarea로 표시 */}
                             {editingCommentId === comment._id ? (
-                                <textarea value={editText} onChange={(e) => setEditText(e.target.value)} />
+                                <textarea
+                                    className={styles.editInput}
+                                    value={editText}
+                                    onChange={(e) => setEditText(e.target.value)}
+                                />
                             ) : (
-                                <span>{comment.text}</span>
+                                <p className={styles.commentText}>{comment.text}</p>
                             )}
 
                             {/* 현재 로그인한 사용자가 작성한 댓글에만 버튼 표시 */}
+                            {/* type="button" 추가*/}
                             {user.userid === comment.userid && (
-                                editingCommentId === comment._id ? (
-                                    <>
-                                        <button onClick={() => { handleUpdate(comment._id) }}>저장</button>
-                                        <button onClick={() => { setEditingCommentId(null); setEditText("") }}>취소</button>
-                                    </>
-                                ) : (
-                                    <>
-                                        <button onClick={() => { setEditingCommentId(comment._id); setEditText(comment.text) }}>수정</button>
-                                        <button>삭제</button>
-                                    </>
-                                )
+                                <div className={styles.commentActions}>
+                                    {editingCommentId === comment._id ? (
+                                        <>
+                                            <button type="button" onClick={() => handleUpdate(comment._id)}>저장</button>
+                                            <button type="button" onClick={() => {
+                                                setEditingCommentId(null)
+                                                setEditText("")
+                                            }}>취소</button>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <button type="button" onClick={() => {
+                                                setEditingCommentId(comment._id)
+                                                setEditText(comment.text)
+                                            }}>수정</button>
+                                            <button type="button" onClick={() => handleDelete(comment._id)}>삭제</button>
+                                        </>
+                                    )}
+                                </div>
                             )}
-
                         </li>
                     ))
                 )}

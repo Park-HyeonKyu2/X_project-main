@@ -9,3 +9,97 @@
     width: 100%;
     height: 800px;
 }
+
+.commentHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.commentAvatar,
+.commentAvatarFallback {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.commentAvatar {
+    display: block;
+    object-fit: cover;
+}
+
+.commentAvatarFallback {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background-color: #15285c;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.commentAuthorInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    min-width: 0;
+    line-height: 1.15;
+}
+
+.commentAuthorInfo strong {
+    overflow: hidden;
+    color: #303534;
+    font-size: 12px;
+    font-weight: 700;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.commentAuthorInfo span {
+    margin-top: 2px;
+    overflow: hidden;
+    color: #7d8381;
+    font-size: 9px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* 댓글 내용 */
+.commentText {
+    margin: 7px 65px 0 38px;
+    overflow-wrap: anywhere;
+    color: #303534;
+    font-size: 12px;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+/* 버튼을 댓글 카드 오른쪽 아래에 고정 */
+.commentActions {
+    position: absolute;
+    right: 14px;
+    bottom: 9px;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.commentActions button {
+    padding: 0;
+    color: #496b65;
+    font: inherit;
+    font-size: 10px;
+    background: transparent;
+    border: 0;
+    cursor: pointer;
+}
+
+.commentActions button:hover {
+    color: #15285c;
+    text-decoration: underline;
+}
+
+.editInput {
+    margin-top: 7px;
+}
