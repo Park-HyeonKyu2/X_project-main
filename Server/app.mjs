@@ -16,7 +16,7 @@ app.use(
     })
 )
 
-app.use(express.json())
+app.use(express.json())     
 
 app.get("/", (req, res) => {
     res.send("Node.js X_Project 서버가 정상 실행 중입니다.")
