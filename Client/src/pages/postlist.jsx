@@ -11,32 +11,6 @@ export default function Post() {
   const [posts, setPosts] = useState([])
   const [user, setUser] = useState({})
 
-  const fetchPosts = async () => {
-    try {
-      setLoading(true)
-      setError("")
-
-      const response = await fetch(API_URL, {
-        method: "GET",
-        header: {
-          "Content-Type": "application/json"
-        }
-      })
-
-      if (!response.ok) {
-        throw new Error("게시글 목록을 불러오지 못했습니다")
-      }
-
-      const { data } = await response.json()
-      setPosts(data)
-    } catch (error) {
-      console.error(error)
-      setError(error.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
   const navigate = useNavigate()
 
   const getPost = async () => {
@@ -125,7 +99,10 @@ export default function Post() {
         throw new Error("게시물 등록을 실패했습니다.")
       }
       alert("게시물 등록을 완료했습니다")
-      await fetchPosts()
+
+      setPost("")
+      await getPost()
+
       return data
     } catch (error) {
       console.error(error)
