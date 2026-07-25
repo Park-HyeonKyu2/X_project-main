@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import styles from "./postlist.module.css"
 const API_URL = "http://127.0.0.1:18765/post"
+const AUTH_API_URL = "http://127.0.0.1:18765/auth/me"
 import { useNavigate } from "react-router-dom"
 
 export default function Post() {
@@ -8,6 +9,7 @@ export default function Post() {
   const [loading, setLoading] = useState(false)
   const [post, setPost] = useState("")
   const [posts, setPosts] = useState([])
+  const [user, setUser] = useState({})
 
   const fetchPosts = async () => {
     try {
@@ -60,8 +62,32 @@ export default function Post() {
     setPosts(data)
   }
 
+  // 현재 로그인한 사용자의 프로필 정보를 조회
+  const getUser = async () => {
+    const token = localStorage.getItem("token")
+
+    if (!token) {
+      throw new Error("로그인이 필요합니다.")
+    }
+
+    const response = await fetch(AUTH_API_URL, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.message || "사용자 정보 조회에 실패했습니다.")
+    }
+
+    setUser(data)
+  }
+
   useEffect(() => {
-    getPost().catch((error) => {
+    Promise.all([getPost(), getUser()]).catch((error) => {
       console.error(error)
       setError(error.message)
     })
@@ -120,6 +146,26 @@ export default function Post() {
     <>
       <button onClick={logout}>logout</button>
       <form onSubmit={handleSubmit}>
+        {/* 현재 로그인한 사용자의 프로필 */}
+        <div className={styles.composerProfile}>
+          {user.profileImage ? (
+            <img
+              className={styles.composerAvatar}
+              src={user.profileImage}
+              alt={`${user.name || user.userid} 프로필`}
+            />
+          ) : (
+            <div className={styles.composerAvatarFallback}>
+              {user.name?.charAt(0) || user.userid?.charAt(0) || "U"}
+            </div>
+          )}
+
+          <div className={styles.composerAuthor}>
+            <strong>{user.name || user.userid}</strong>
+            <span>@{user.userid}</span>
+          </div>
+        </div>
+
         <textarea className={styles.input} type="text" placeholder="글을 작성해주세요" value={post} onChange={(e) => setPost(e.target.value)} />
         {error && <p>{error}</p>}
         <button className={styles.button} type="submit">POST</button>

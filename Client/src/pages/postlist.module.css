@@ -77,23 +77,71 @@
     width: min(calc(100% - 40px), 930px);
     min-height: 240px;
     margin: 0 auto 52px;
-    padding: 60px 60px 27px;
+    padding: 28px 60px 27px;
     background: #f1f2f2;
     border-radius: 27px;
 }
 
 :global(#root):has(> form > textarea.input)>form::before {
-    position: absolute;
-    top: 21px;
-    left: 60px;
+    display: none;
+    content: none;
+}
+
+/* 게시글 작성창의 로그인 사용자 프로필 */
+.composerProfile {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+    min-width: 0;
+}
+
+.composerAvatar,
+.composerAvatarFallback {
+    width: 41px;
+    height: 41px;
+    flex-shrink: 0;
+    border-radius: 50%;
+}
+
+.composerAvatar {
+    display: block;
+    object-fit: cover;
+}
+
+.composerAvatarFallback {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 27px;
-    height: 27px;
-    content: "";
+    color: #fff;
     background: #175c35;
-    border-radius: 50%;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.composerAuthor {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    line-height: 1.1;
+}
+
+.composerAuthor strong {
+    overflow: hidden;
+    color: #303534;
+    font-size: 16px;
+    font-weight: 800;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.composerAuthor span {
+    margin-top: 2px;
+    overflow: hidden;
+    color: #777d7b;
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .input {
@@ -384,15 +432,35 @@
     :global(#root):has(> form > textarea.input)>form {
         width: calc(100% - 40px);
         min-height: 140px;
-        padding: 35px 20px 16px;
+        padding: 18px 20px 16px;
         border-radius: 18px;
     }
 
     :global(#root):has(> form > textarea.input)>form::before {
-        top: 12px;
-        left: 22px;
-        width: 18px;
-        height: 18px;
+        display: none;
+    }
+
+    .composerProfile {
+        gap: 8px;
+        margin-bottom: 9px;
+    }
+
+    .composerAvatar,
+    .composerAvatarFallback {
+        width: 27px;
+        height: 27px;
+    }
+
+    .composerAvatarFallback {
+        font-size: 12px;
+    }
+
+    .composerAuthor strong {
+        font-size: 11px;
+    }
+
+    .composerAuthor span {
+        font-size: 8px;
     }
 
     .input {
