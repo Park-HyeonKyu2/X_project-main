@@ -1,23 +1,32 @@
+// 1. 프론트엔드 삭제 기능 구현
+// 2. 백엔드 댓글 수정 기능 구현
+// 3. 백엔드 댓글 삭제 기능 구현
+
 import { useState, useEffect } from "react"
-import { useNavigate } from "react-router-dom"
 import styles from "./ComentSection.module.css"
 
-
 export default function ComentSection({ post_id }) {
-    const [loading, setLoading] = useState("")
+    // 에러 메세지
     const [error, setError] = useState("")
+    // 댓글 작성 메세지
     const [text, setText] = useState("")
+    // 댓글 객체 여러 개를 담은 배열
     const [comments, setComments] = useState([])
+    // 현재 로그인한 사용자 정보를 저장 
     const [user, setUser] = useState([])
-
+    // 현재 수정 중인 댓글의 ID
     const [editingCommentId, setEditingCommentId] = useState(null)
+    // 수정할 댓글의 내용
     const [editText, setEditText] = useState("")
 
+    // 해당 게시글의 댓글 조회·작성·수정·삭제 API 주소
     const COMMENT_API_URL = `http://127.0.0.1:18765/post/${post_id}/comments`
+    // 현재 로그인한 사용자 정보를 조회하는 API 주소
     const AUTH_API_URL = 'http://127.0.0.1:18765/auth/me'
 
-    const navigate = useNavigate()
-
+    /**
+     * 현재 로그인한 사용자 정보를 조회해 user에 저장
+     */
     const getUser = async () => {
         const token = localStorage.getItem("token")
 
@@ -34,15 +43,14 @@ export default function ComentSection({ post_id }) {
         const data = await response.json()
 
         if (!response.ok) {
-            throw new Error(data.message || "게시물 조회에 실패했습니다.")
+            throw new Error(data.message || "사용자 정보 조회에 실패했습니다.")
         }
-
         setUser(data)
     }
 
+    /** 현재 게시글의 댓글 목록을 조회해 comments에 저장 */
     const getComment = async () => {
         const token = localStorage.getItem("token")
-
         if (!token) {
             throw new Error("로그인이 필요합니다.")
         }
@@ -57,13 +65,17 @@ export default function ComentSection({ post_id }) {
         const data = await response.json()
 
         if (!response.ok) {
-            throw new Error(data.message || "게시물 조회에 실패했습니다.")
+            throw new Error(data.message || "댓글 조회에 실패했습니다.")
         }
 
         setComments(data)
     }
 
+    // 컴포넌트가 처음 렌더링되거나 post_id가 변경될 때 
+    // 로그인 사용자 정보와 현재 게시글의 댓글 목록을 조회
     useEffect(() => {
+        // Promise.all : 여러 비동기 작업을 동시에 실행하고, 전부 끝날 때까지 기다리는 기능
+        // getUser()와 getComment()를 동시에 실행
         Promise.all([
             getUser(),
             getComment()
@@ -71,21 +83,22 @@ export default function ComentSection({ post_id }) {
             console.error(error)
             setError(error.message)
         })
+    // 새 게시글로 이동할 때마다 useEffect를 다시 실행시킨다.
     }, [post_id])
 
-    const handleEdit = (state) => {
-        console.log("state: ", state)
-        setisEditing(!state)
-    }
-
+    /**
+     * 선택한 댓글의 내용을 수정하고
+     * 수정된 댓글 목록을 다시 불러오는 함수
+     */
     const handleUpdate = async (commentId) => {
+        // 이전에 표시된 에러 메시지 초기화
         setError("")
 
+        // 수정 내용이 비어 있거나 공백만 있는 경우 요청 중단
         if (!editText.trim()) {
             setError("수정할 내용을 입력해주세요")
             return
         }
-
         try {
             const token = localStorage.getItem("token")
 
@@ -93,6 +106,7 @@ export default function ComentSection({ post_id }) {
                 throw new Error("로그인이 필요합니다")
             }
 
+            // 수정할 댓글 ID를 주소에 추가해 PUT 요청 전송
             const response = await fetch(
                 `${COMMENT_API_URL}/${commentId}`,
                 {
@@ -111,8 +125,9 @@ export default function ComentSection({ post_id }) {
                 throw new Error("댓글 수정에 실패했습니다.")
             }
 
+            // 수정된 댓글을 화면에 반영하기 위해 댓글 목록 다시 조회
             await getComment()
-
+            // 수정 모드를 종료하고 수정 입력값 초기화
             setEditingCommentId(null)
             setEditText("")
         } catch (error) {
@@ -121,10 +136,16 @@ export default function ComentSection({ post_id }) {
         }
     }
 
+    /**
+     * 작성한 댓글을 서버에 등록하는 함수
+     */
     const handleSubmit = async (e) => {
         e.preventDefault()
+
+        // 에러 메세지 초기화
         setError("")
 
+        // 입력값이 비어 있거나 공백만 있는 경우 등록 중단
         if (!text.trim()) {
             setError("텍스트를 입력해주세요")
             return
@@ -137,6 +158,7 @@ export default function ComentSection({ post_id }) {
                 throw new Error("로그인이 필요합니다")
             }
 
+            // 현재 게시글의 댓글 API로 POST 요청 전송
             const response = await fetch(COMMENT_API_URL, {
                 method: "POST",
                 headers: {
@@ -150,9 +172,13 @@ export default function ComentSection({ post_id }) {
             const data = await response.json()
 
             if (!response.ok) {
-                throw new Error("댓글 등록을 실패했습니다.")
+                throw new Error("댓글 등록에 실패했습니다.")
             }
+            // 등록된 댓글을 화면에 반영하기 위해 댓글 목록 다시 조회
             await getComment()
+
+            // 댓글 등록 후 입력창 초기화
+            setText("")
             return data
         } catch (error) {
             console.error(error)
@@ -163,21 +189,21 @@ export default function ComentSection({ post_id }) {
     return (
         <section className={styles.section}>
             <ul>
-                {console.log(user.userid)}
-                userid: {user.userid}
                 {comments.length === 0 ? (
                     <p>첫 번째 댓글을 달아보세요!</p>
                 ) : (
+                    // 댓글 배열을 순회하며 각 댓글을 화면에 출력
                     comments.map((comment) => (
                         <li className={styles.commentItem} key={comment._id}>
+                            {/* 현재 수정 중인 댓글만 textarea로 표시 */}
                             {editingCommentId === comment._id ? (
                                 <textarea value={editText} onChange={(e) => setEditText(e.target.value)} />
                             ) : (
                                 <span>{comment.text}</span>
                             )}
 
+                            {/* 현재 로그인한 사용자가 작성한 댓글에만 버튼 표시 */}
                             {user.userid === comment.userid && (
-
                                 editingCommentId === comment._id ? (
                                     <>
                                         <button onClick={() => { handleUpdate(comment._id) }}>저장</button>
@@ -186,7 +212,7 @@ export default function ComentSection({ post_id }) {
                                 ) : (
                                     <>
                                         <button onClick={() => { setEditingCommentId(comment._id); setEditText(comment.text) }}>수정</button>
-                                        <button onClick={() => handleUpdate(comment._id)}>삭제</button>
+                                        <button>삭제</button>
                                     </>
                                 )
                             )}
@@ -195,8 +221,9 @@ export default function ComentSection({ post_id }) {
                     ))
                 )}
             </ul>
+            {/* 새 댓글 작성 */}
             <form onSubmit={handleSubmit}>
-                <textarea className={styles.input} type="text" placeholder="댓글을 작성해주세요" value={text} onChange={(e) => setText(e.target.value)} />
+                <textarea className={styles.input} placeholder="댓글을 작성해주세요" value={text} onChange={(e) => setText(e.target.value)} />
                 {error && <p>{error}</p>}
                 <button className={styles.button} type="submit">POST</button>
             </form>
