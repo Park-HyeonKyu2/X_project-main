@@ -40,10 +40,10 @@ router.post("/:postId/comments", isAuth, commentsController.createComment)
 router.get("/:postId/comments", isAuth, commentsController.getByComment)
 
 // 댓글 수정하기
-router.put("/:postId/comments", isAuth, commentsController.updateComment)
+router.put("/:postId/comments/:id", isAuth, commentsController.updateComment)
 
 // 댓글 삭제하기
-router.delete("/:postId/comments", isAuth, commentsController.deleteComment)
+router.delete("/:postId/comments/:id", isAuth, commentsController.deleteComment)
 
 
 export default router

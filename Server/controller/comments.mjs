@@ -23,14 +23,14 @@ export async function deleteComment(req, res) {
     if(!post){
         return res.status(404).json({message: `${id}의 댓글이 없습니다`})
     }
-    if(post.idx !== req.id){ 
+    if(post.authorId !== req.id){ 
         return res.sendStatus(403)
     }
     await commentRepository.remove(id)
     res.sendStatus(204)
 }
 
-// 포스트를 변경하는 함수
+// 댓글을 변경하는 함수
 export async function updateComment(req, res) {
     const id = req.params.id
     const text = req.body.text
@@ -38,7 +38,7 @@ export async function updateComment(req, res) {
     if(!post){
         return res.status(404).json({ message: `${id}의 댓글이 없습니다`})
     }
-    if (post.idx !== req.id) {
+    if (post.authorId.toString() !== req.id) {
         return res.sendStatus(403)
     }
     const updated = await commentRepository.update(id, text)
