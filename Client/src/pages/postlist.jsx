@@ -17,7 +17,7 @@ export default function Post() {
       const response = await fetch(API_URL, {
         method: "GET",
         header: {
-          "Content-Type" : "application/json"
+          "Content-Type": "application/json"
         }
       })
 
@@ -25,7 +25,7 @@ export default function Post() {
         throw new Error("게시글 목록을 불러오지 못했습니다")
       }
 
-      const {data} = await response.json()
+      const { data } = await response.json()
       setPosts(data)
     } catch (error) {
       console.error(error)
@@ -113,7 +113,7 @@ export default function Post() {
   }
 
   const movingPost = async (post_id) => {
-      navigate(`/post/${post_id}`)
+    navigate(`/post/${post_id}`)
   }
 
   return (
@@ -131,9 +131,24 @@ export default function Post() {
         ) : (
           posts.map((post) => (
             <li className={styles.postItem} key={post._id} onClick={() => movingPost(post._id)}>
-              <span>{post.name}</span>
-              <span>@{post.userid}</span>
-              <p>{post.text}</p>
+              <div className={styles.postHeader}>
+                <div className={styles.postAvatar}>
+                  {post.name?.charAt(0) || post.userid?.charAt(0) || "U"}
+                </div>
+                
+                <div className={styles.postAuthor}>
+                  <strong>{post.name}</strong>
+                  <span>@{post.userid}</span>
+                </div>
+              </div>
+              <p className={styles.postText}>{post.text}</p>
+
+              {/* 작성 날짜 */}
+              {post.createdAt && (
+                <time className={styles.postData}>
+                  {new Date(post.createdAt).toLocaleString("ko-KR")}
+                </time>
+              )}
             </li>
           ))
         )}

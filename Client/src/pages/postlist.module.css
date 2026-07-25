@@ -10,7 +10,7 @@
     width: 100%;
     min-height: 100vh;
     min-height: 100svh;
-    padding: 135px 0 60px;
+    padding: 145px 0 68px;
     color: #202a2d;
     text-align: left;
     background: #fff;
@@ -20,80 +20,77 @@
 /* Gradient hourglass logo */
 :global(#root):has(> form > textarea.input)::before {
     position: absolute;
-    top: 31px;
-    left: calc(50% - 343px);
+    top: 29px;
+    left: max(20px, calc(50% - 465px));
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 63px;
-    height: 63px;
+    width: 69px;
+    height: 69px;
     color: #fff;
     font-family: Arial, sans-serif;
-    font-size: 39px;
+    font-size: 43px;
     font-weight: 300;
     line-height: 1;
     content: "⌛︎";
     background: linear-gradient(145deg, #a9ddd4 8%, #b9dcd6 48%, #f5afd0 100%);
-    border-radius: 12px;
+    border-radius: 14px;
 }
 
 /* Logout button */
-:global(#root):has(> form > textarea.input) > button:first-child {
+:global(#root):has(> form > textarea.input)>button:first-child {
     position: absolute;
-    top: 31px;
-    right: calc(50% - 343px);
-    width: 109px;
-    height: 33px;
+    top: 29px;
+    right: max(20px, calc(50% - 465px));
+    width: 120px;
+    height: 36px;
     padding: 0;
     color: #fff;
     font: inherit;
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 800;
     text-transform: uppercase;
     cursor: pointer;
     background: #98bfb7;
     border: 0;
-    border-radius: 9px;
+    border-radius: 11px;
     transition:
         background-color 160ms ease,
         transform 160ms ease;
 }
 
-:global(#root):has(> form > textarea.input) > button:first-child:hover {
+:global(#root):has(> form > textarea.input)>button:first-child:hover {
     background: #87afa7;
 }
 
-:global(#root):has(> form > textarea.input) > button:first-child:active {
+:global(#root):has(> form > textarea.input)>button:first-child:active {
     background: #769f97;
     transform: translateY(1px);
 }
 
 /* Post composer */
-:global(#root):has(> form > textarea.input) > form {
+:global(#root):has(> form > textarea.input)>form {
     position: relative;
     display: flex;
     flex-direction: column;
-    width: min(calc(100% - 40px), 730px);
-    min-height: 191px;
-    margin: 0 auto 41px;
-    padding: 48px 46px 21px;
+    /* 기존 730px에서 줄임 */
+    width: min(calc(100% - 40px), 930px);
+    min-height: 240px;
+    margin: 0 auto 52px;
+    padding: 60px 60px 27px;
     background: #f1f2f2;
-    border-radius: 25px;
+    border-radius: 27px;
 }
 
-:global(#root):has(> form > textarea.input) > form::before {
+:global(#root):has(> form > textarea.input)>form::before {
     position: absolute;
-    top: 16px;
-    left: 48px;
+    top: 21px;
+    left: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 24px;
-    height: 24px;
-    color: #fff;
-    font-family: Arial, sans-serif;
-    font-size: 0;
-    font-weight: 800;
+    width: 27px;
+    height: 27px;
     content: "";
     background: #175c35;
     border-radius: 50%;
@@ -102,22 +99,20 @@
 .input {
     display: block;
     width: 100%;
-    height: 80px;
-    min-height: 80px;
-    padding: 14px 16px;
-    overflow: auto;
+    height: 105px;
+    min-height: 105px;
+    padding: 18px 21px;
+
     color: #263234;
     font: inherit;
-    font-size: 15px;
+    font-size: 16px;
     line-height: 1.5;
-    resize: vertical;
+
+    resize: none;
     background: #f1f2f2;
     border: 1px solid #dfe2e1;
-    border-radius: 14px;
+    border-radius: 15px;
     outline: none;
-    transition:
-        border-color 160ms ease,
-        box-shadow 160ms ease;
 }
 
 .input::placeholder {
@@ -130,7 +125,7 @@
     box-shadow: 0 0 0 3px rgba(152, 191, 183, 0.25);
 }
 
-:global(#root):has(> form > textarea.input) > form > p {
+:global(#root):has(> form > textarea.input)>form>p {
     margin: 5px 0 -17px;
     color: #dc5b62;
     font-size: 12px;
@@ -139,22 +134,21 @@
 
 .button {
     align-self: flex-end;
-    width: 127px;
-    height: 33px;
-    margin-top: 10px;
+    width: 158px;
+    height: 42px;
+    margin-top: 12px;
     padding: 0;
+
     color: #fff;
     font: inherit;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 800;
     text-transform: lowercase;
+
     cursor: pointer;
     background: #98bfb7;
     border: 0;
-    border-radius: 9px;
-    transition:
-        background-color 160ms ease,
-        transform 160ms ease;
+    border-radius: 11px;
 }
 
 .button:hover {
@@ -167,22 +161,23 @@
 }
 
 .button:focus-visible,
-:global(#root):has(> form > textarea.input) > button:first-child:focus-visible {
+:global(#root):has(> form > textarea.input)>button:first-child:focus-visible {
     outline: 3px solid rgba(118, 159, 151, 0.5);
     outline-offset: 3px;
 }
 
 /* Post list */
-:global(#root):has(> form > textarea.input) > ul {
+:global(#root):has(> form > textarea.input)>ul {
     display: flex;
     flex-direction: column;
-    gap: 21px;
-    width: min(calc(100% - 40px), 730px);
+    gap: 27px;
+
+    width: min(calc(100% - 40px), 930px);
     margin: 0 auto;
     padding: 0;
 }
 
-:global(#root):has(> form > textarea.input) > ul > p {
+:global(#root):has(> form > textarea.input)>ul>p {
     margin: 0;
     padding: 48px 20px;
     color: #8d9190;
@@ -194,27 +189,46 @@
 .postItem {
     position: relative;
     display: grid;
-    grid-template-columns: auto 1fr;
-    grid-template-rows: auto auto;
-    column-gap: 6px;
-    align-content: start;
-    min-height: 172px;
+    grid-template-columns: 41px minmax(0, 1fr);
+    grid-template-rows: 41px minmax(0, auto) 1fr;
+    column-gap: 12px;
+
+    min-height: 218px;
     margin: 0;
-    padding: 29px 46px 28px;
+    padding: 36px 60px 54px;
+
     list-style: none;
     cursor: pointer;
     background: #f1f2f2;
     border: 0;
-    border-radius: 25px;
+    border-radius: 30px;
+
     transition:
         background-color 160ms ease,
         transform 160ms ease,
         box-shadow 160ms ease;
+
+}
+
+/* 기존 JSX에서도 프로필 위치가 보이도록 하는 대체 원 */
+.postItem::before {
+    grid-column: 1;
+    grid-row: 1;
+    width: 41px;
+    height: 41px;
+    content: "";
+    background: #15285c;
+    border-radius: 50%;
+}
+
+/* 실제 프로필 요소를 사용하면 대체 원은 숨긴다. */
+.postItem:has(.postHeader)::before {
+    display: none;
 }
 
 .postItem:hover {
     background: #ebeeee;
-    box-shadow: 0 8px 20px rgba(32, 42, 45, 0.08);
+    box-shadow: 0 6px 15px rgba(32, 42, 45, 0.08);
     transform: translateY(-2px);
 }
 
@@ -223,35 +237,37 @@
     outline-offset: 2px;
 }
 
-.postItem > span:first-child {
-    grid-column: 1;
+.postItem>span:first-child {
+    grid-column: 2;
     grid-row: 1;
+    align-self: start;
     color: #303534;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 800;
-    line-height: 1.25;
+    line-height: 1;
 }
 
-.postItem > span:nth-child(2) {
+.postItem>span:nth-child(2) {
     grid-column: 2;
     grid-row: 1;
     align-self: end;
     color: #777d7b;
-    font-size: 10px;
-    line-height: 1.25;
+    font-size: 12px;
+    line-height: 1;
 }
 
-.postItem > p {
+.postItem>p {
     grid-column: 1 / -1;
     grid-row: 2;
-    margin: 12px 0 0;
+    margin: 14px 0 0;
     overflow-wrap: anywhere;
     color: #202524;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
-    line-height: 1.45;
+    line-height: 1.4;
     white-space: pre-wrap;
 }
+
 
 @media (max-width: 780px) {
     :global(#root):has(> form > textarea.input) {
@@ -260,35 +276,190 @@
 
     :global(#root):has(> form > textarea.input)::before {
         top: 24px;
-        left: 24px;
+        left: max(20px, calc(50% - 465px));
     }
 
-    :global(#root):has(> form > textarea.input) > button:first-child {
+    :global(#root):has(> form > textarea.input)>button:first-child {
         top: 24px;
-        right: 24px;
+        right: max(20px, calc(50% - 465px));
     }
 }
 
+/* 프로필과 작성자 정보 */
+.postHeader {
+    grid-column: 1 / -1;
+    grid-row: 1;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+}
+
+/* 프로필 원 */
+.postAvatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 41px;
+    height: 41px;
+    flex-shrink: 0;
+
+    color: #fff;
+    background: #15285c;
+    border-radius: 50%;
+
+    font-size: 18px;
+    font-weight: 700;
+}
+
+/* 닉네임 아래에 @아이디 배치 */
+.postAuthor {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    line-height: 1.1;
+}
+
+.postAuthor strong {
+    color: #303534;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.postAuthor span {
+    margin-top: 2px;
+    color: #777d7b;
+    font-size: 12px;
+}
+
+/* 게시글 내용 */
+.postText {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    margin: 15px 0 0;
+
+    overflow-wrap: anywhere;
+    color: #202524;
+
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 1.4;
+    white-space: pre-wrap;
+}
+
+/* 작성 날짜: JSX의 postData 오타도 함께 지원 */
+.postDate,
+.postData {
+    position: absolute;
+    left: 60px;
+    bottom: 21px;
+    display: block;
+    margin: 0;
+    padding: 0;
+
+    color: #777d7b;
+    font-size: 10px;
+    line-height: 1;
+}
+
 @media (max-width: 520px) {
-    :global(#root):has(> form > textarea.input) > form {
-        width: calc(100% - 28px);
-        min-height: 184px;
-        padding: 46px 20px 18px;
-        border-radius: 22px;
+    :global(#root):has(> form > textarea.input) {
+        padding-top: 105px;
     }
 
-    :global(#root):has(> form > textarea.input) > form::before {
+    :global(#root):has(> form > textarea.input)::before {
+        width: 46px;
+        height: 46px;
+        font-size: 29px;
+        border-radius: 9px;
+    }
+
+    :global(#root):has(> form > textarea.input)>button:first-child {
+        width: 80px;
+        height: 24px;
+        font-size: 10px;
+        border-radius: 7px;
+    }
+
+    :global(#root):has(> form > textarea.input)>form {
+        width: calc(100% - 40px);
+        min-height: 140px;
+        padding: 35px 20px 16px;
+        border-radius: 18px;
+    }
+
+    :global(#root):has(> form > textarea.input)>form::before {
+        top: 12px;
         left: 22px;
+        width: 18px;
+        height: 18px;
     }
 
-    :global(#root):has(> form > textarea.input) > ul {
-        width: calc(100% - 28px);
-        gap: 16px;
+    .input {
+        height: 70px;
+        min-height: 70px;
+        padding: 12px 14px;
+        font-size: 11px;
+        border-radius: 10px;
+    }
+
+    .button {
+        width: 105px;
+        height: 28px;
+        margin-top: 8px;
+        font-size: 16px;
+        border-radius: 7px;
+    }
+
+    :global(#root):has(> form > textarea.input)>ul {
+        width: calc(100% - 40px);
+        gap: 15px;
     }
 
     .postItem {
-        min-height: 150px;
-        padding: 25px 24px;
-        border-radius: 22px;
+        grid-template-columns: 27px minmax(0, 1fr);
+        grid-template-rows: 27px minmax(0, auto) 1fr;
+        column-gap: 8px;
+        min-height: 126px;
+        padding: 21px 24px 32px;
+        border-radius: 18px;
+    }
+
+    .postItem::before,
+    .postAvatar {
+        width: 27px;
+        height: 27px;
+    }
+
+    .postHeader {
+        gap: 8px;
+    }
+
+    .postAvatar {
+        font-size: 12px;
+    }
+
+    .postAuthor strong,
+    .postText,
+    .postItem>span:first-child,
+    .postItem>p {
+        font-size: 11px;
+    }
+
+    .postAuthor span,
+    .postItem>span:nth-child(2) {
+        font-size: 8px;
+    }
+
+    .postText,
+    .postItem>p {
+        margin-top: 10px;
+    }
+
+    .postDate,
+    .postData {
+        left: 24px;
+        bottom: 12px;
+        font-size: 7px;
     }
 }
