@@ -216,8 +216,9 @@ export default function PostContent({ post_id }) {
           </p>
         ) : isEditing ? (
           // 수정 버튼을 누른 상태
-          <form onSubmit={handleUpdate}>
+          <form className={styles.editForm} onSubmit={handleUpdate}>
             <textarea
+              className={styles.editTextarea}
               value={editText}
               onChange={(e) => setEditText(e.target.value)}
               placeholder="수정할 내용을 입력해주세요."
@@ -225,25 +226,29 @@ export default function PostContent({ post_id }) {
             />
 
             {error && (
-              <p role="alert">
+              <p className={styles.editError} role="alert">
                 {error}
               </p>
             )}
 
-            <button
-              type="submit"
-              disabled={isSaving || !editText.trim()}
-            >
-              {isSaving ? "저장 중..." : "저장"}
-            </button>
+            <div className={styles.editActions}>
+              <button
+                className={styles.saveButton}
+                type="submit"
+                disabled={isSaving || !editText.trim()}
+              >
+                {isSaving ? "저장 중..." : "저장"}
+              </button>
 
-            <button
-              type="button"
-              onClick={handleEditCancel}
-              disabled={isSaving}
-            >
-              취소
-            </button>
+              <button
+                className={styles.cancelButton}
+                type="button"
+                onClick={handleEditCancel}
+                disabled={isSaving}
+              >
+                취소
+              </button>
+            </div>
           </form>
         ) : error ? (
           // 게시글 조회 중 오류가 발생한 상태

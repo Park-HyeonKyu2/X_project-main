@@ -209,8 +209,7 @@ export default function ComentSection({ post_id }) {
                     Authorization: `Bearer ${token}`,
                 },
             })
-
-               
+            
             if (response.status === 403) {
                 throw new Error("자신이 작성한 댓글만 삭제할 수 있습니다.")
             }
