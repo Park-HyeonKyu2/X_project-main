@@ -35,7 +35,7 @@ export async function getById(id) {
 
 // 특정 게시글 안의 모든 댓글을 리턴
 export async function getByPostId(postId) {
-  return getComments().find({ postId: new ObjectId(postId) }).sort({ createdAt: -1 }).toArray()
+  return getComments().find({ postId: new ObjectId(postId) }).sort({ createdAt: 1 }).toArray()
 }
 
 // 댓글 삭제
