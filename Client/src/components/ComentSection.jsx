@@ -297,11 +297,43 @@ export default function ComentSection({ post_id }) {
                                         </>
                                     ) : (
                                         <>
-                                            <button type="button" onClick={() => {
-                                                setEditingCommentId(comment._id)
-                                                setEditText(comment.text)
-                                            }}>수정</button>
-                                            <button type="button" onClick={() => handleDelete(comment._id)}>삭제</button>
+                                            <button
+                                                className={styles.actionButton}
+                                                type="button"
+                                                aria-label="댓글 수정"
+                                                title="수정"
+                                                onClick={() => {
+                                                    setEditingCommentId(comment._id)
+                                                    setEditText(comment.text)
+                                                }}
+                                            >
+                                                <svg
+                                                    className={styles.actionIcon}
+                                                    viewBox="0 0 32 32"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path d="m7 23-1 4 4-1L25 11l-3-3L7 23Z" />
+                                                    <path d="m19.5 10.5 3 3" />
+                                                </svg>
+                                            </button>
+                                            <button
+                                                className={styles.actionButton}
+                                                type="button"
+                                                aria-label="댓글 삭제"
+                                                title="삭제"
+                                                onClick={() => handleDelete(comment._id)}
+                                            >
+                                                <svg
+                                                    className={styles.actionIcon}
+                                                    viewBox="0 0 32 32"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path d="M7 9h18" />
+                                                    <path d="M13 5h6l1 4h-8l1-4Z" />
+                                                    <path d="m9 9 1.5 18h11L23 9" />
+                                                    <path d="M14 14v8m4-8v8" />
+                                                </svg>
+                                            </button>
                                         </>
                                     )}
                                 </div>

@@ -100,6 +100,36 @@
     text-decoration: underline;
 }
 
+/* PostContent의 수정·삭제 버튼과 동일한 SVG 아이콘 스타일 */
+.commentActions .actionButton {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    color: #99c8bd;
+    cursor: pointer;
+    background: transparent;
+    border: 0;
+}
+
+.commentActions .actionButton:hover {
+    color: #76a99d;
+    text-decoration: none;
+}
+
+.actionIcon {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    pointer-events: none;
+}
+
 /* 댓글 작성창의 로그인 사용자 프로필 */
 .composerProfile {
     display: flex;
