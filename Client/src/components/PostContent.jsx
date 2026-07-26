@@ -4,9 +4,13 @@ import styles from "./PostContent.module.css"
 
 export default function PostContent({post_id}) {
   const navigate = useNavigate()
+  // 에러 메시지
   const [error, setError ] = useState("")
+  // 게시글 내용
   const [ post, setPost ] = useState("")
+  // 게시글을 불러오는지 확인
   const [ loading, setLoading ] = useState(true)
+  // 이미 가져온 게시글의 Id저장, 이미 요청한 게시글 ID를 기억해서 중복요청 방지
   const fetchedPostId = useRef(null)
 
   const API_URL = `http://127.0.0.1:18765/post/${post_id}`
@@ -40,13 +44,16 @@ export default function PostContent({post_id}) {
     }
   }
 
+  // post_id 가 변경될 때 해당 게시글을 서버에서 가져오는 역할
   useEffect (() => {
+    // post_id가 없을 때 & 해당 ID의 게시글을 이미 요청했을 때
     if (!post_id || fetchedPostId.current === post_id) return
 
     fetchedPostId.current = post_id
     fetchPosts()
   }, [post_id])
 
+  // URL 공유하기
   const handleShare = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href)
@@ -62,6 +69,8 @@ export default function PostContent({post_id}) {
         {!loading && !error && (
           <div className={styles.profile}>
             <div className={styles.avatar} aria-hidden="true">
+            {/* chatAt: 문자열에서 특정 위치의 문자 하나를 가져오는 함수 */}
+            {/* 아이디나 프로필 가져오기 위해서 */}
               {post?.name?.charAt(0) || post?.userid?.charAt(0) || "U"}
             </div>
 
