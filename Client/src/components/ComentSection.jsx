@@ -9,7 +9,7 @@ export default function ComentSection({ post_id }) {
     // 에러 메세지
     const [error, setError] = useState("")
     // 댓글 작성 메세지
-    const [text, setText] = useState("")
+    const [text, setText] = useState("")    
     // 댓글 객체 여러 개를 담은 배열
     const [comments, setComments] = useState([])
     // 현재 로그인한 사용자 정보를 저장 

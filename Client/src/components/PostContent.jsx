@@ -53,6 +53,28 @@ export default function PostContent({post_id}) {
     fetchPosts()
   }, [post_id])
 
+  // 게시글 삭제
+  const handleDelete = async () => {
+    try{
+      setError("")
+      
+      const response = await fetch(API_URL, {
+        method: "DELETE",
+        headers: {
+          "Authorization" : `Bearer ${token}`
+        }
+      })
+      navigate(`/post`)
+
+      if(!response.ok){
+        const data = await response.json()
+        throw new Error (data.message || "게시글을 삭제하지 못했습니다")
+      }
+    }catch(error){
+      console.log("게시글 삭제 오류: ", error)
+    }
+  }
+
   // URL 공유하기
   const handleShare = async () => {
     try {
@@ -105,7 +127,8 @@ export default function PostContent({post_id}) {
       <footer className={styles.actions}>
         <button
           className={styles.actionButton}
-          type="button"
+          onClick={handleDelete}
+          type="submit"
           aria-label="게시글 삭제"
           title="삭제"
         >
