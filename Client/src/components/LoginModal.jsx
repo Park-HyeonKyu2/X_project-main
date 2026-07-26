@@ -36,7 +36,8 @@ export default function LoginModal({ onClose }) {
             const data = await fetchLogin()
             localStorage.setItem("token", data.token)
 
-            onClose()   // 모달창만 닫음           
+            onClose()   // 모달창만 닫음   
+            window.location.reload()  
         } catch (error) {
             console.error(error)
             setError(error.message)
